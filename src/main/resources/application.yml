@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: ChattingApplication
+  jpa:
+    database: "mysql"
+    show-sql: "true"
+    hibernate:
+      ddl-auto: "update"
+    properties:
+      hibernate:
+        format_sql: true
+    generate-ddl: true
+
+  datasource:
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+    url: "jdbc:mysql://MYSQL:3306/ChatDB?serverTimezone=UTC&characterEncoding=UTF-8"
+    username: "root"
+    password: "Qkrwnstn012@"
+
+  server:
+    tomcat:
+      threads:
+        max: 200  # 쓰레드의 최대 개수
+        min-spare : 10  # 활성화 상태로 유지할 최소 쓰레드의 개수
+      accept-count: 100 # 모든 스레드가 사용 중일때 들어오는 연결 요청 큐의 최대 길이
+    port: 8080
+
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
+      groups-order: DESC
+      operationsSorter: method
+      disable-swagger-default-url: true
+      display-request-duration: true
+    api-docs:
+      path: /chat
+    show-actuator: true
+    default-consumes-media-type: application/json
+    default-produces-media-type: application/json
+    paths-to-match:
+      - /api/v1/chat

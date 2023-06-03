@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  backend:
+    container_name: backend
+    build:
+      context: ./
+    command: gradle bootRun
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mysql
+    networks:
+      - network-tier
+    tty: true
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/log:/var/log/nginx
+    depends_on:
+      - backend
+    networks:
+      - network-tier
+
+  mysql:
+    container_name: MYSQL
+    image: mysql:latest
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_DATABASE=ChatDB
+      - MYSQL_ROOT_PASSWORD=Qkrwnstn012@
+    networks:
+      - network-tier
+
+networks:
+  network-tier:
+    driver: bridge
