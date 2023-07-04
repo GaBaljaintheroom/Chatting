@@ -8,7 +8,7 @@ import org.springframework.web.socket.config.annotation.*;
 @EnableWebSocketMessageBroker
 public class StompWepSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    // example는 WebSocket 또는 SockJS Client가 웹소켓 핸드셰이크 커넥션을 생성할 경로
+    //웹소켓 핸드셰이크 커넥션을 생성할 경로
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
 
