@@ -9,8 +9,6 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -21,7 +19,7 @@ public class MessageController {
 
     // 채팅방 입장
     @MessageMapping("/chat/enter/{roomId}")
-    @SendTo("/sub/chat/room/{roomId}")
+    @SendTo("/topic/chat/room/{roomId}")
     public MessageInfo enterUser(@DestinationVariable("roomId") Long roomId, @Payload MessageCreateRequest message){
         message.setMessage(message.getSender() + "님이 채팅방에 입장하였습니다.");
         return messageService.saveMessage(message);
