@@ -1,9 +1,6 @@
 package com.example.chatting.global.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -19,7 +16,7 @@ public class RabbitConfig {
 
     private static final String CHAT_QUEUE_NAME = "chat.queue";
     private static final String CHAT_EXCHANGE_NAME = "chat.exchange";
-    private static final String ROUTING_KEY = "room.*";
+    private static final String ROUTING_KEY = "*.room.*";
 
     //Queue 등록
     @Bean
@@ -56,7 +53,8 @@ public class RabbitConfig {
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory factory = new CachingConnectionFactory();
         factory.setHost("localhost");
-        factory.setPort(61613);
+        factory.setPort(5672);
+        factory.setVirtualHost("/");
         factory.setUsername("guest");
         factory.setPassword("guest");
         return factory;
